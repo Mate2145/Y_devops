@@ -38,7 +38,7 @@ A következő eszközök és technológiák kerültek felhasználásra a projekt
 
 ## Kezdés
 
-###Terraform
+### Terraform
 cd terraform/prf-app
 Terraform alias -->docker run -it --rm -v ${PWD}:/workspace -v //var/run/docker.sock:/var/run/docker.sock  -w /workspace hashicorp/terraform:light init
 terraform plan
@@ -46,7 +46,7 @@ terraform apply
 
 localhost-on eltudjuk érni a frontendet az Nginx segítségével.
 
-###Jenkins
+### Jenkins
 
 A Jenkinsben felvan állítva egy CI/CD folyamat a backend deployra, ami egy Docker (SSH) konténer által fut.
 
