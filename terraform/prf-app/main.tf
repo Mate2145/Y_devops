@@ -44,6 +44,11 @@ module "angular_app" {
   container_name = "${var.project_name}-angular"
 }
 
+# Nginx modul
+module "nginx" {
+  source = "./modules/nginx"
+}
+
 output "network_info" {
   value = {
     network_id   = docker_network.app_network.id
