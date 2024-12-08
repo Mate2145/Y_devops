@@ -57,10 +57,10 @@ pipeline {
                             cd /app
                             rm -rf *
                             git clone https://github.com/Mate2145/Y.git
-                            cd Y/backend     # Javítva: először be kell lépni a klónozott repo backend könyvtárába
+                            cd Y/backend
                             npm ci
                             npm run build
-                            pm2 delete "Twitter Clone" || true    # Ha már fut, akkor leállítjuk
+                            pm2 delete "Twitter Clone" || true
                             pm2 start build/index.js --name "Twitter Clone"
                         '
                     """
