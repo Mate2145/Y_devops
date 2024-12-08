@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  bind9:
+    build:
+      context: .
+      dockerfile: Dockerfile_bind9
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    networks:
+      y_network:
+        ipv4_address: 172.30.0.2
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile_frontend
+    ports:
+      - "4200:4200"
+    networks:
+      y_network:
+        ipv4_address: 172.30.0.3
+    cap_add:
+      - NET_ADMIN
+
+networks:
+  y_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16

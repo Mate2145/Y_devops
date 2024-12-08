@@ -1,0 +1,26 @@
+# Node.js 20 használata alapképként
+FROM node:20
+
+# Git telepítése
+RUN apt-get update && apt-get install -y git
+
+# Munkakönyvtár beállítása
+WORKDIR /app
+
+# Repository klónozása
+RUN git clone https://github.com/Mate2145/Y.git .
+
+# Backend könyvtárba lépés
+WORKDIR /app/backend
+
+# Függőségek telepítése
+RUN npm install
+
+# TypeScript fordítása
+RUN npm run build
+
+# 5000-es port megnyitása
+EXPOSE 5000
+
+# Backend szerver indítása
+CMD ["npm", "run", "start"]

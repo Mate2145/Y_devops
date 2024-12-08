@@ -1,0 +1,29 @@
+# Use Node.js 20 as base image
+FROM node:20
+
+
+RUN apt-get update && \
+    apt-get install -y git iptables
+
+
+WORKDIR /app
+
+
+COPY firewall_settings/angular_firewall.sh /firewall.sh
+RUN chmod +x /firewall.sh
+
+
+RUN git clone https://github.com/Mate2145/Y.git .
+
+
+WORKDIR /app/frontend/y_frontend
+
+
+RUN npm install -g @angular/cli && \
+    npm install
+
+
+EXPOSE 4200
+
+
+CMD ["/bin/bash", "-c", "/firewall.sh && ng serve --host 0.0.0.0"]

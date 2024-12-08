@@ -1,0 +1,23 @@
+FROM internetsystemsconsortium/bind9:9.18
+
+
+RUN apk add --no-cache iptables
+
+
+RUN mkdir -p /tmp/bind && \
+    chown -R bind:bind /tmp/bind && \
+    chmod 775 /tmp/bind
+
+
+COPY firewall_settings/bind9_firewall.sh /firewall.sh
+RUN chmod +x /firewall.sh
+
+
+COPY bind_config/named.conf /etc/bind/named.conf
+COPY bind_config/db.y-dashboard.test /etc/bind/db.y-dashboard.test
+RUN chown -R bind:bind /etc/bind && \
+    chmod 644 /etc/bind/named.conf && \
+    chmod 644 /etc/bind/db.y-dashboard.test
+
+
+ENTRYPOINT [ "/bin/sh", "-c", "/firewall.sh && /usr/sbin/named -g -c /etc/bind/named.conf -u bind" ]
